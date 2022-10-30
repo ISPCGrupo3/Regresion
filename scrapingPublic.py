@@ -33,39 +33,20 @@ def scrapingPublic():
     df2  = pd.DataFrame()
     df3  = pd.DataFrame()
 
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'lun' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 1))
-    i    = 0
-    k    = 0
+    daysWeeks = {
+        'lun'    : 1,
+        'mar'   : 2,
+        'mié': 3,
+        'jue'   : 4,
+        'vie'  : 5,
+        'sáb'   : 6,
+        'dom'  : 7
+    }
 
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'mar' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 2))
-    i    = 0
-    k    = 0
-
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'mié' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 3))
-    i    = 0
-    k    = 0
-
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'jue' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 4))
-    i    = 0
-    k    = 0
-
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'vie' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 5))
-    i    = 0
-    k    = 0
-
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'sáb' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 6))
-    i    = 0
-    k    = 0
-
-    wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= 'dom' ]"))).click()
-    df3 = df3.append(scrap(df, df2, data, i, k, 7))
-    i    = 0
-    k    = 0
+    for key, value in daysWeeks.items():
+        wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[text()= '"+key+"']"))).click()
+        df3 = df3.append(scrap(df, df2, data, i, k, value))
+        i    = 0
+        k    = 0
 
     return df3.to_csv('distribucion_dia_horario.csv', sep=';', index=False)
